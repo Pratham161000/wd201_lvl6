@@ -1,5 +1,8 @@
-"use strict";
-const { Model } = require("sequelize");
+/* eslint-disable require-jsdoc */
+'use strict';
+const {
+  Model,
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {
     /**
@@ -7,28 +10,29 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+    static associate() {
       // define association here
     }
 
-    static addTodo({ title, dueDate }) {
-      return this.create({ title: title, dueDate: dueDate, completed: false });
+    static addTodo({title, dueDate}) {
+      return this.create({title: title, dueDate: dueDate, completed: false});
+    }
+
+    static getTodos(){
+      return this.findAll();
     }
 
     markAsCompleted() {
-      return this.update({ completed: true });
+      return this.update({completed: true});
     }
   }
-  Todo.init(
-    {
-      title: DataTypes.STRING,
-      dueDate: DataTypes.DATEONLY,
-      completed: DataTypes.BOOLEAN,
-    },
-    {
-      sequelize,
-      modelName: "Todo",
-    }
-  );
+  Todo.init({
+    title: DataTypes.STRING,
+    dueDate: DataTypes.DATEONLY,
+    completed: DataTypes.BOOLEAN,
+  }, {
+    sequelize,
+    modelName: 'Todo',
+  });
   return Todo;
 };
